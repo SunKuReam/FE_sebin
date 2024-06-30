@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.product-card {
+  flex: 0 0 48%; /* 48%를 사용하여 간격을 고려한 두 개의 카드 배치 */
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: center;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
