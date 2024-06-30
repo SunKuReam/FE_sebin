@@ -1,11 +1,88 @@
 .App {
   text-align: center;
 }
+
+.header {
+  background-color: #cccccc; /* 회색 배경 */
+  padding: 20px; /* 박스 내부 여백 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  position: fixed; /* 최상단에 고정 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 전체 너비 */
+  box-shadow: 0 4px 2px -2px gray; /* 박스 하단 그림자 */
+  display: flex;
+  align-items: center;
+}
+
+.sub-header {
+  background-color: #cccccc; /* 회색 배경 */
+  padding: 20px; /* 박스 내부 여백 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 전체 너비 */
+  box-shadow: 0 4px 2px -2px gray; /* 박스 하단 그림자 */
+  display: flex;
+  align-items: center;
+}
+
+.close-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.menu-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 60px;
+}
+
+.menu.open {
+  left: 0;
+}
+
+.menu nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu nav ul li {
+  padding: 10px 20px;
+}
+
+.menu nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
 .product-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 30px;
+  padding: 10px;
 }
 
 .product-card {
@@ -13,6 +90,8 @@
   box-sizing: border-box;
   margin-bottom: 20px;
   padding: 10px;
+  /* border: 1px solid #ccc;
+  border-radius: 8px; */
   text-align: center;
 }
 
