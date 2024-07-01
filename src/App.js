@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import doubleRastedVest from "./mainpage_images/testcloth1.png";
 import beltedSidePocketPants from "./mainpage_images/testcloth2.png";
@@ -16,76 +15,110 @@ import multiPearlChain from "./mainpage_images/multi_pearl_chain.png";
 import logoPearlKeychain from "./mainpage_images/logo_pearl_keychain.png";
 import pearlLongScar from "./mainpage_images/pearl_long_scar.png";
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useParams,
+} from "react-router-dom";
+
 // 상품 id, 이름, Url 저장하는 Array
 const products = [
   {
     id: 1,
-    name: "Double Rasted Vest",
+    name: "Double rasted vest",
     imageUrl: doubleRastedVest,
+    description:
+      "This double rasted vest is perfect for any formal occasion. Made with high-quality materials, it offers both style and comfort. Available in multiple sizes.",
   },
   {
     id: 2,
-    name: "Belted Side Pocket Pants",
+    name: "Blelted side pocket pants",
     imageUrl: beltedSidePocketPants,
+    description:
+      "Our belted side pocket pants are a must-have for any wardrobe. With a modern fit and convenient pockets, these pants are both practical and fashionable.",
   },
   {
     id: 3,
-    name: "Mesh Bodysuit",
+    name: "Mesh bodysuit",
     imageUrl: meshBodysuit,
+    description:
+      "The mesh bodysuit combines elegance and allure. Perfect for evening wear, it can be paired with skirts or pants for a stunning look.",
   },
   {
     id: 4,
-    name: "Classy Cashmere Jacket",
+    name: "Classy cashmere jacket",
     imageUrl: classyCashmereJacket,
+    description:
+      "Stay warm and stylish with our classy cashmere jacket. This jacket is designed to provide maximum comfort while keeping you looking chic and sophisticated.",
   },
   {
     id: 5,
-    name: "Classy Cashmere Pants",
+    name: "Classy cashmere pants",
     imageUrl: classyCashmerePants,
+    description:
+      "Pair these classy cashmere pants with our cashmere jacket for a complete look. Comfortable and stylish, these pants are perfect for any occasion.",
   },
   {
     id: 6,
-    name: "Organza Blazer",
+    name: "Organza blazer",
     imageUrl: organzaBlazer,
+    description:
+      "The organza blazer adds a touch of elegance to any outfit. Lightweight and stylish, it's perfect for both casual and formal wear.",
   },
   {
     id: 7,
-    name: "Cotton Sleeveless",
+    name: "Cotton sleeveless",
     imageUrl: cottonSleeveless,
+    description:
+      "This cotton sleeveless top is a wardrobe essential. It's comfortable, versatile, and perfect for layering.",
   },
   {
     id: 8,
-    name: "One Tuck Pants",
+    name: "One tuck pants",
     imageUrl: oneTuckPants,
+    description:
+      "Our one tuck pants offer a modern fit with a classic style. They're perfect for both work and casual outings.",
   },
   {
     id: 9,
-    name: "Double Belted Pleats Skirt",
+    name: "Double belted pleats skirt",
     imageUrl: doubleBeltedPleatsSkirt,
+    description:
+      "The double belted pleats skirt is a fashionable addition to any wardrobe. It pairs well with both casual and formal tops.",
   },
   {
     id: 10,
-    name: "Handmade Pearl Tie",
+    name: "Handmade pearl tie",
     imageUrl: handmadePearlTie,
+    description:
+      "This handmade pearl tie adds a unique touch to any outfit. It's a perfect accessory for special occasions.",
   },
   {
     id: 11,
-    name: "Multi Pearl Chain",
+    name: "Multi pearl chain",
     imageUrl: multiPearlChain,
+    description:
+      "The multi pearl chain necklace is elegant and versatile. It can be worn with a variety of outfits for a sophisticated look.",
   },
   {
     id: 12,
-    name: "Logo Pearl Keychain",
+    name: "Logo pearl keychain",
     imageUrl: logoPearlKeychain,
+    description:
+      "Keep your keys stylishly organized with our logo pearl keychain. It's both practical and fashionable.",
   },
   {
     id: 13,
-    name: "Pearl Long Scar",
+    name: "Pearl long scarf",
     imageUrl: pearlLongScar,
+    description:
+      "The pearl long scarf is perfect for adding a touch of elegance to any outfit. It's versatile and can be styled in multiple ways.",
   },
 ];
 
-function App() {
+function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -98,11 +131,17 @@ function App() {
         <button className="menu-button" onClick={toggleMenu}>
           ☰
         </button>
-        <h1>SUN</h1>
+        <h1>
+          <Link to="/" className="home-link">
+            SUN
+          </Link>
+        </h1>
       </header>
       <div className="sub-header">
         <h3>2025 S/S</h3>
       </div>
+
+      {/*메뉴 창 위한 부분*/}
       <div className={`menu ${menuOpen ? "open" : ""}`}>
         <button className="close-button" onClick={toggleMenu}>
           ☰
@@ -115,15 +154,20 @@ function App() {
           </ul>
         </nav>
       </div>
+
       <div className="product-container">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="product-image"
-            />
-            <p className="product-name">{product.name}</p>
+            <Link to={`/product/${product.id}`}>
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="product-image"
+              />
+            </Link>
+            <Link to={`/product/${product.id}`} className="product-name">
+              {product.name}
+            </Link>
           </div>
         ))}
       </div>
@@ -153,6 +197,49 @@ function App() {
         </p>
       </div>
     </div>
+  );
+}
+
+function ProductDetail() {
+  const { id } = useParams();
+  const productId = parseInt(id, 10);
+  const product = products.find((p) => p.id === productId);
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+  return (
+    <div className="product-detail-container">
+      <header className="Brand Name">
+        <h1>
+          <Link to="/" className="home-link">
+            SUN
+          </Link>
+        </h1>
+      </header>
+      <img
+        src={product.imageUrl}
+        alt={product.name}
+        className="product-detail-image"
+      />
+      <div className="product-detail-info">
+        <h2>{product.name}</h2>
+        <p>{product.description}</p>
+        <Link to="/">Back to Home</Link>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+      </Routes>
+    </Router>
   );
 }
 
